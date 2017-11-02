@@ -7,7 +7,7 @@
  * Oliver Graf 17190
  *
  */
-public class Estudiante {
+public class Estudiante  {
 	protected String nombre;
 	protected String dpi;
 	protected float notaFinal;
