@@ -31,6 +31,82 @@ public class Bachillerato extends Estudiante implements NotaEscalafon {
 		// TODO Auto-generated constructor stub
 	}
 	
+	
+	/**
+	 * @return the nombre
+	 */
+	public String getNombre() {
+		return nombre;
+	}
+	/**
+	 * @param nombre the nombre to set
+	 */
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+	/**
+	 * @return the dpi
+	 */
+	public String getDpi() {
+		return dpi;
+	}
+	/**
+	 * @param dpi the dpi to set
+	 */
+	public void setDpi(String dpi) {
+		this.dpi = dpi;
+	}
+	/**
+	 * @return the notaFinal
+	 */
+	public float getNotaFinal() {
+		return notaFinal;
+	}
+	/**
+	 * @param notaFinal the notaFinal to set
+	 */
+	public void setNotaFinal(float notaFinal) {
+		this.notaFinal = notaFinal;
+	}
+	
+	/**
+	 * @return the promDecimo
+	 */
+	public float getPromDecimo() {
+		return promDecimo;
+	}
+	/**
+	 * @param promDecimo the promDecimo to set
+	 */
+	public void setPromDecimo(float promDecimo) {
+		this.promDecimo = promDecimo;
+	}
+	/**
+	 * @return the promOnceavo
+	 */
+	public float getPromOnceavo() {
+		return promOnceavo;
+	}
+	/**
+	 * @param promOnceavo the promOnceavo to set
+	 */
+	public void setPromOnceavo(float promOnceavo) {
+		this.promOnceavo = promOnceavo;
+	}
+	/**
+	 * @return the notaHistoria
+	 */
+	public float getNotaHistoria() {
+		return notaHistoria;
+	}
+	/**
+	 * @param notaHistoria the notaHistoria to set
+	 */
+	public void setNotaHistoria(float notaHistoria) {
+		this.notaHistoria = notaHistoria;
+	}
+	
+	
 	public void calcularPromedio() {
 	}
 	
