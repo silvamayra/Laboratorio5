@@ -9,5 +9,5 @@
  */
 public interface NotaEscalafon {
 	public void calcularPromedio();
-	public void calcularNota();
+	public float calcularNota();
 }

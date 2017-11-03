@@ -31,10 +31,13 @@ public class BachilleratoDesvinculado extends Bachillerato implements NotaEscala
 	}
 	
 	public void calcularPromedio() {
+		notaFinal=(promDecimo+promOnceavo)/2;
 		
 	}
 	
-	public void calcularNota() {
+	public float calcularNota() {
+		notaFinal=(float)((notaFinal*0.4)+(notaHistoria*0.6));
+		return notaFinal;
 		
 	}
 	

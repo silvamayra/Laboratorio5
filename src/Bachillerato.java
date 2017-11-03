@@ -108,9 +108,12 @@ public class Bachillerato extends Estudiante implements NotaEscalafon {
 	
 	
 	public void calcularPromedio() {
+		notaFinal=(promDecimo+promOnceavo)/2;
 	}
 	
-	public void calcularNota() {
+	public float calcularNota() {
+		notaFinal=(float)((notaFinal*0.6)+(notaHistoria*0.4));
+		return notaFinal;
 	}
 	
 	
