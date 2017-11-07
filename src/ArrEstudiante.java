@@ -63,6 +63,46 @@ public  class ArrEstudiante extends Estudiante implements Comparator {
 	}
 	 
 	
+	 public String verificarRendimientoSecundaria(float valor) {
+		 String mensaje="";
+		int inicio=0;
+		float contador=0;
+		float resultado=0;
+		SecundariaDesvinculado listaSec[];
+		for(SecundariaDesvinculado nuevo: arrEstudiantes) {
+			listaSec[inicio]=nuevo;
+			resultado=resultado + listaSec[inicio].getNotaFinal();
+			inicio ++;
+		}
+		resultado=resultado/(listaSec.length);
+		if(resultado>valor) {
+		return mensaje="El rendimiento de los estudiantes es mayor al valor ingresado";
+		}
+		if(resultado<valor) {
+			return mensaje="El rendimiento de los estudiantes es menor al valor ingresado";
+		}
+	}
+
+	/**
+	 * 
+	 * @param arrEstudiantes
+	 * @return escalafon ordenado
+	 */
+	
+	public String escalafonordenarEscalafon(ArrayList<Estudiante> arrEstudiantes) {
+		int tamano=arrEstudiantes.size();
+		String cadena="";
+		float mayor=arrEstudiantes.get(0).getNotaFinal();
+		for(int i=1; i<tamano; i++) {
+			if(arrEstudiantes.get(i).getNotaFinal()>mayor) {
+				mayor=arrEstudiantes.get(i).getNotaFinal();
+				cadena=cadena + "" + arrEstudiantes.get(i).getNombre() + arrEstudiantes.get(i).getNotaFinal();
+		}
+			
+	}
+		return cadena;
+	}
+	
 	
 	
 		

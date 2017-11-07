@@ -8,6 +8,6 @@
  *
  */
 public interface NotaEscalafon {
-	public void calcularPromedio();
-	public float calcularNota();
+	public void calcularPromedio(float ...lista);
+	public void calcularNota(float...lista);
 }

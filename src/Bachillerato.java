@@ -107,13 +107,19 @@ public class Bachillerato extends Estudiante implements NotaEscalafon {
 	}
 	
 	
-	public void calcularPromedio() {
-		notaFinal=(promDecimo+promOnceavo)/2;
+	//Metodo que calcula el promedio de los ultimos dos años de estudio
+		//@param: float promDecimo, float promOnceavo
+	public void calcularPromedio(float ...list) {
+		this.notaFinal=(promDecimo+promOnceavo)/2;
 	}
-	
-	public float calcularNota() {
-		notaFinal=(float)((notaFinal*0.6)+(notaHistoria*0.4));
-		return notaFinal;
+
+	/**
+	 * Metodo que calcula la nota para el escalafon
+	 * @param notaHistoria
+	 */
+	public void calcularNota(float ...list) {
+		this.notaFinal=(float)((notaFinal*0.6)+(notaHistoria*0.4));
+		
 	}
 	
 	

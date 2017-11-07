@@ -7,6 +7,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import java.awt.FlowLayout;
 import javax.swing.JLayeredPane;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JRadioButton;
 import javax.swing.JSeparator;
@@ -30,6 +31,8 @@ public class Main extends JFrame {
 	Bachillerato bachTemp;
 	BachilleratoDesvinculado bachDesvTemp;
 	DbConnection dbConnection;
+	Error errores;
+	String mensaje;
 	
 
 	/**
@@ -77,6 +80,7 @@ public class Main extends JFrame {
 		
 		panel.setVisible(false);
 		dbConnection=new DbConnection();
+		errores= new Error();
 		
 		
 		getContentPane().setLayout(null);
@@ -344,6 +348,8 @@ public class Main extends JFrame {
 				lblNewLabel_2.setVisible(false);
 				txtRendimiento.setVisible(false);
 				lblNewLabel_3.setVisible(false);
+				txtNotaAptDesv.setVisible(false);
+				lblNotaDeExamen_3.setVisible(false);
 			
 				
 			}
@@ -372,15 +378,75 @@ public class Main extends JFrame {
 		//Metodo para crear el objeto ya sea de secundaria o desvinculado de secundaria
 		btnContinuar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				
 				float txtPromSep= Float.parseFloat(txtPromSepSec.getText());
 				float txtPromOct= Float.parseFloat(txtPromOctavSec.getText());
 				float txtPromNov= Float.parseFloat(txtPromNovSec.getText());
 				float txtNotaMate=Float.parseFloat(txtNotaMateSec.getText());
 				float txtNotaHistoria=Float.parseFloat(txtNotaHistoriaSec.getText());
 				float txtNotaEspanol=Float.parseFloat(txtNotaEspSec.getText());
-				
 				if(rdbtnSecundaria.isSelected()) {
-				estudiante = new Secundaria();
+					
+					estudiante = new Secundaria();
+					
+					//En este metodo se realiza la verificacion, se utiliza excepciones, donde se le solicita al usuario que ingrese un dato valido
+					if(errores.verificarString(txtNombreSec.getText())==false) {
+						mensaje="¡Debe de ingresar solamente letras!"+"\n"+ "Ingrese los datos nuevamente";
+						JOptionPane.showMessageDialog(null, mensaje);
+						txtNombreSec.setText("");
+						txtDPISec.setText("");
+						txtPromSepSec.setText("");
+						txtPromOctavSec.setText("");
+						txtPromNovSec.setText("");
+						txtNotaMateSec.setText("");
+						txtNotaHistoriaSec.setText("");
+						txtNotaEspSec.setText("");
+				}
+					
+					//En este metodo se hace la verificacion, asegurandose de que el usuario solo ingrese numeros
+					
+						if(errores.verificarString(txtPromSepSec.getText())==false ) {
+							mensaje="¡Debe de ingresar solamente números!"+"\n"+ "Ingrese los datos nuevamente";
+							JOptionPane.showMessageDialog(null, mensaje);
+							txtNombreSec.setText("");
+							txtDPISec.setText("");
+							txtPromSepSec.setText("");
+							txtPromOctavSec.setText("");
+							txtPromNovSec.setText("");
+							txtNotaMateSec.setText("");
+							txtNotaHistoriaSec.setText("");
+							txtNotaEspSec.setText("");
+							
+						}
+						
+					if( errores.verificarString(txtPromOctavSec.getText())==true) {
+						mensaje="¡Debe de ingresar solamente números!"+"\n"+ "Ingrese los datos nuevamente";
+						JOptionPane.showMessageDialog(null, mensaje);
+						txtNombreSec.setText("");
+						txtDPISec.setText("");
+						txtPromSepSec.setText("");
+						txtPromOctavSec.setText("");
+						txtPromNovSec.setText("");
+						txtNotaMateSec.setText("");
+						txtNotaHistoriaSec.setText("");
+						txtNotaEspSec.setText("");
+					}
+					if(errores.verificarInt(txtPromNovSec.getText())==false )
+						{
+						
+						}
+					if(errores.verificarInt(txtNotaMateSec.getText())==false) {
+						
+					}
+					if(errores.verificarInt(txtNotaHistoriaSec.getText())==false) {
+						
+					}
+					if(errores.verificarInt(txtNotaEspSec.getText())){
+						
+					}
+								
+					
+					
 				secundariaTemp.setNombre(txtNombreSec.getText());
 				secundariaTemp.setDpi(txtDPISec.getText());
 				secundariaTemp.setPromSeptimo(txtPromSep);
@@ -389,6 +455,9 @@ public class Main extends JFrame {
 				secundariaTemp.setNotaMate(txtNotaMate);
 				secundariaTemp.setNotaEspanol(txtNotaEspanol);
 				secundariaTemp.setNotaHistoria(txtNotaHistoria);
+				secundariaTemp.calcularPromedio(txtPromSep, txtPromOct, txtPromNov);
+				secundariaTemp.calcularNota(txtNotaMate, txtNotaEspanol, txtNotaHistoria);
+				
 				baseDatos.addEstudiante(secundariaTemp);
 				dbConnection.addEstudiante(secundariaTemp);
 				}
@@ -408,13 +477,18 @@ public class Main extends JFrame {
 					desvSecTemp.setNotaEspanol(txtNotaEspanol);
 					desvSecTemp.setNotaHistoria(txtNotaHistoria);
 					desvSecTemp.setNotaAptitud(txtNotaAptitud);
+					desvSecTemp.calcularPromedio(txtPromSep, txtPromOct, txtPromNov);
+					desvSecTemp.calcularNota(txtNotaMate,txtNotaEspanol, txtNotaHistoria,txtNotaAptitud);
 					baseDatos.addEstudiante(desvSecTemp);
+					dbConnection.addEstudiante(desvSecTemp);
 				}
 				
 				
 				
 			}
 		});
+		
+		//Metodo para crear un objeto bachillerato o desvinculado de bachillerato
 		btnAgregar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				float txtOnceavo= Float.parseFloat(txtPromOnceavo.getText());
@@ -426,7 +500,10 @@ public class Main extends JFrame {
 					bachTemp.setPromDecimo(txtPromDecimo);
 					bachTemp.setPromOnceavo(txtOnceavo);
 					bachTemp.setNotaHistoria(txtHistoria);
+					bachTemp.calcularPromedio(txtPromDecimo,txtOnceavo);
+					bachTemp.calcularNota(txtHistoria);
 					baseDatos.addEstudiante(bachTemp);
+					dbConnection.addEstudiante(bachTemp);
 				}
 				if(rdbtnDesvinculadoDeBachillerato.isSelected()) {
 				
@@ -435,7 +512,10 @@ public class Main extends JFrame {
 					bachDesvTemp.setPromDecimo(txtPromDecimo);
 					bachDesvTemp.setPromOnceavo(txtOnceavo);
 					bachDesvTemp.setNotaHistoria(txtHistoria);
+					bachDesvTemp.calcularPromedio(txtPromDecimo,txtOnceavo);
+					bachDesvTemp.calcularNota(txtHistoria);
 					baseDatos.addEstudiante(bachDesvTemp);
+					dbConnection.addEstudiante(bachDesvTemp);
 				}
 			}
 		});

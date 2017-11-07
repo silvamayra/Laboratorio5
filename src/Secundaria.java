@@ -170,14 +170,14 @@ public class Secundaria extends Estudiante implements NotaEscalafon{
 	}
 	
 	
-	public void calcularPromedio() {
-		notaFinal=(promSeptimo+promOctavo+promNoveno)/3;
+	public void calcularPromedio(float ...list) {
+		this.notaFinal=(promSeptimo+promOctavo+promNoveno)/3;
 		
 	}
 	
-	public float calcularNota() {
-		notaFinal=(float) ((notaFinal*0.6)+(((notaMate+notaHistoria+notaEspanol)/3)*0.4));
-		return notaFinal;
+	public void calcularNota(float...list) {
+		this.notaFinal=(float) ((notaFinal*0.6)+(((notaMate+notaHistoria+notaEspanol)/3)*0.4));
+		
 	}
 	
 }

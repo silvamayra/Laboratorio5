@@ -30,14 +30,13 @@ public class BachilleratoDesvinculado extends Bachillerato implements NotaEscala
 		// TODO Auto-generated constructor stub
 	}
 	
-	public void calcularPromedio() {
-		notaFinal=(promDecimo+promOnceavo)/2;
+	public void calcularPromedio(float ...list) {
+		this.notaFinal=(promDecimo+promOnceavo)/2;
 		
 	}
 	
-	public float calcularNota() {
-		notaFinal=(float)((notaFinal*0.4)+(notaHistoria*0.6));
-		return notaFinal;
+	public void calcularNota(float ...list) {
+		this.notaFinal=(float)((notaFinal*0.4)+(notaHistoria*0.6));
 		
 	}
 	

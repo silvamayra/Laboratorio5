@@ -180,13 +180,12 @@ public class SecundariaDesvinculado extends Secundaria implements NotaEscalafon 
 		this.notaAptitud = notaAptitud;
 	}
 	
-	public void calcularPromedio() {
-		notaFinal=(promSeptimo+promOctavo+ promNoveno)/2;
+	public void calcularPromedio(float promSeptimo, float promOctavo, float promNoveno) {
+		this.notaFinal=(promSeptimo+promOctavo+ promNoveno)/2;
 	}
 	
-	public float calcularNota() {
-		notaFinal=(float)(((notaFinal*0.4)+(((notaMate+notaEspanol+notaHistoria)/3)*0.6)+notaAptitud)/2);
-		return notaFinal;
+	public void calcularNota(float notaMate, float notaEspanol, float notaHistoria, float notaAptitud) {
+		this.notaFinal=(float)(((notaFinal*0.4)+(((notaMate+notaEspanol+notaHistoria)/3)*0.6)+notaAptitud)/2);
 		
 	}
 	
