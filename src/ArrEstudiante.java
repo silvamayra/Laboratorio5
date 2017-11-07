@@ -1,13 +1,17 @@
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 
-public class ArrEstudiante {
+public  class ArrEstudiante extends Estudiante implements Comparator {
 	private ArrayList<Estudiante> arrEstudiantes;
 
 	/**
 	 * @param arrEstudiantes
 	 */
 	public ArrEstudiante() {
+		super();
 		arrEstudiantes=new ArrayList<Estudiante>();
+		
 	}
 
 	/**
@@ -25,16 +29,40 @@ public class ArrEstudiante {
 	}
 	
 	//Metodo para llenar el arraylist de estudiantes
-	public void addEstudiante() {
+	public void addEstudiante(Estudiante estu) {
 		Estudiante nuevo=new Estudiante();
 		arrEstudiantes.add(nuevo);
 	}
 	
-	public int compareTo(Object other) {
-		
+	//Metodo para comprar la nota de los dos objetos
+	/**
+	 * 
+	 * @param dobby
+	 * @param snape
+	 * @return 0 si son iguales, 1 segundo, -1 si el primero es menor que el segundo 
+	 */
+	
+	public int compare(Estudiante dobby, Estudiante snape) {
+		if(dobby.getNotaFinal()==snape.getNotaFinal()) {
+			return 0;
+		}
+		else if (dobby.getNotaFinal()>dobby.notaFinal) {
+			return 1;
+		}
+		else {
+			return-1;
+	}
 		
 		
 	}
+
+	@Override
+	public int compare(Object arg0, Object arg1) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	 
+	
 	
 	
 		

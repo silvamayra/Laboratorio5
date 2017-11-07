@@ -1,4 +1,4 @@
-import java.awt.BorderLayout;
+import java.awt.BorderLayout; 
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -11,18 +11,32 @@ import javax.swing.JTextField;
 import javax.swing.JRadioButton;
 import javax.swing.JSeparator;
 import java.awt.Font;
+
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Main extends JFrame {
 
 	private JPanel contentPane;
 	private final JPanel panel = new JPanel();
+	
+	//Declaracion de variables
+	ArrEstudiante baseDatos;
+	Estudiante estudiante;
+	Secundaria secundariaTemp;
+	SecundariaDesvinculado desvSecTemp;
+	Bachillerato bachTemp;
+	BachilleratoDesvinculado bachDesvTemp;
+	DbConnection dbConnection;
+	
 
 	/**
 	 * Launch the application.
 	 */
 	
-	ArrEstudiante escalafon;
+	
 	private JTextField txtNombreSec;
 	private JTextField txtDPISec;
 	private JTextField txtPromSepSec;
@@ -47,6 +61,7 @@ public class Main extends JFrame {
 				try {
 					Main frame = new Main();
 					frame.setVisible(true);
+					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -58,27 +73,61 @@ public class Main extends JFrame {
 	 * Create the frame.
 	 */
 	public Main() {
+		
+		
+		panel.setVisible(false);
+		dbConnection=new DbConnection();
+		
+		
 		getContentPane().setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Bienvenido(a), seleccione el tipo de estudiante a ingresar");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblNewLabel.setBounds(184, 11, 399, 14);
+		lblNewLabel.setBounds(352, 11, 399, 14);
 		getContentPane().add(lblNewLabel);
 		
 		JRadioButton rdbtnSecundaria = new JRadioButton("Secundaria");
 		rdbtnSecundaria.setBounds(159, 32, 109, 23);
 		getContentPane().add(rdbtnSecundaria);
-		panel.setBounds(10, 111, 377, 332);
+		
+		JRadioButton rdbtnDesvinculadoDeSecundaria = new JRadioButton("Desvinculado de secundaria");
+		rdbtnDesvinculadoDeSecundaria.setBounds(159, 58, 199, 23);
+		getContentPane().add(rdbtnDesvinculadoDeSecundaria);
+		
+		
+		JRadioButton rdbtnBachillerato = new JRadioButton("Bachillerato");
+		rdbtnBachillerato.setBounds(654, 32, 109, 23);
+		getContentPane().add(rdbtnBachillerato);
+		
+		
+		JRadioButton rdbtnDesvinculadoDeBachillerato = new JRadioButton("Desvinculado de bachillerato");
+		rdbtnDesvinculadoDeBachillerato.setBounds(654, 58, 164, 23);
+		getContentPane().add(rdbtnDesvinculadoDeBachillerato);
+		
+		
+		ButtonGroup grupo= new ButtonGroup();
+		grupo.add(rdbtnSecundaria);
+		grupo.add(rdbtnDesvinculadoDeSecundaria);
+		grupo.add(rdbtnBachillerato);
+		grupo.add(rdbtnDesvinculadoDeBachillerato);
+		
+		JButton btnSiguiente = new JButton("Siguiente");
+	
+		
+	
+		btnSiguiente.setBounds(476, 80, 89, 23);
+		getContentPane().add(btnSiguiente);
+		panel.setBounds(10, 111, 527, 453);
 		getContentPane().add(panel);
 		panel.setLayout(null);
 		
 		txtDPISec = new JTextField();
-		txtDPISec.setBounds(53, 39, 162, 20);
+		txtDPISec.setBounds(53, 33, 281, 20);
 		panel.add(txtDPISec);
 		txtDPISec.setColumns(10);
 		
 		txtNombreSec = new JTextField();
-		txtNombreSec.setBounds(53, 8, 162, 20);
+		txtNombreSec.setBounds(53, 8, 281, 20);
 		panel.add(txtNombreSec);
 		txtNombreSec.setColumns(10);
 		
@@ -91,70 +140,78 @@ public class Main extends JFrame {
 		panel.add(lblDPI);
 		
 		JLabel lblPromSeptimo = new JLabel("Promedio de s\u00E9ptimo:");
-		lblPromSeptimo.setBounds(10, 66, 103, 14);
+		lblPromSeptimo.setBounds(10, 66, 227, 14);
 		panel.add(lblPromSeptimo);
 		
 		txtPromSepSec = new JTextField();
-		txtPromSepSec.setBounds(129, 63, 86, 20);
+		txtPromSepSec.setBounds(247, 64, 86, 20);
 		panel.add(txtPromSepSec);
 		txtPromSepSec.setColumns(10);
 		
+		
 		JLabel lblPromSep = new JLabel("Promedio de octavo:");
-		lblPromSep.setBounds(10, 91, 103, 14);
+		lblPromSep.setBounds(10, 91, 227, 14);
 		panel.add(lblPromSep);
 		
 		txtPromOctavSec = new JTextField();
-		txtPromOctavSec.setBounds(129, 88, 86, 20);
+		txtPromOctavSec.setBounds(248, 88, 86, 20);
 		panel.add(txtPromOctavSec);
 		txtPromOctavSec.setColumns(10);
 		
+		
 		JLabel lblPromedioDeNoveno = new JLabel("Promedio de noveno:");
-		lblPromedioDeNoveno.setBounds(10, 116, 103, 14);
+		lblPromedioDeNoveno.setBounds(10, 116, 227, 14);
 		panel.add(lblPromedioDeNoveno);
 		
 		txtPromNovSec = new JTextField();
-		txtPromNovSec.setBounds(129, 113, 86, 20);
+		txtPromNovSec.setBounds(248, 113, 86, 20);
 		panel.add(txtPromNovSec);
 		txtPromNovSec.setColumns(10);
 		
+		
 		JLabel lblNotaDeExamen = new JLabel("Nota de examen de matem\u00E1tica:");
-		lblNotaDeExamen.setBounds(10, 141, 162, 14);
+		lblNotaDeExamen.setBounds(10, 141, 269, 14);
 		panel.add(lblNotaDeExamen);
 		
 		txtNotaMateSec = new JTextField();
-		txtNotaMateSec.setBounds(170, 138, 45, 20);
+		txtNotaMateSec.setBounds(289, 138, 45, 20);
 		panel.add(txtNotaMateSec);
 		txtNotaMateSec.setColumns(10);
 		
+		
 		JLabel lblNotaDeExamen_1 = new JLabel("Nota de examen de historia:");
-		lblNotaDeExamen_1.setBounds(10, 166, 148, 14);
+		lblNotaDeExamen_1.setBounds(10, 166, 269, 14);
 		panel.add(lblNotaDeExamen_1);
 		
 		txtNotaHistoriaSec = new JTextField();
 		txtNotaHistoriaSec.setText("");
-		txtNotaHistoriaSec.setBounds(170, 163, 45, 20);
+		txtNotaHistoriaSec.setBounds(289, 163, 45, 20);
 		panel.add(txtNotaHistoriaSec);
 		txtNotaHistoriaSec.setColumns(10);
 		
+		
 		JLabel lblNotaDeExamen_2 = new JLabel("Nota de examen de espa\u00F1ol:");
-		lblNotaDeExamen_2.setBounds(10, 189, 148, 14);
+		lblNotaDeExamen_2.setBounds(10, 189, 269, 14);
 		panel.add(lblNotaDeExamen_2);
 		
 		txtNotaEspSec = new JTextField();
-		txtNotaEspSec.setBounds(170, 186, 45, 20);
+		txtNotaEspSec.setBounds(289, 186, 45, 20);
 		panel.add(txtNotaEspSec);
 		txtNotaEspSec.setColumns(10);
 		
+		
 		JLabel lblNotaDeExamen_3 = new JLabel("Nota de examen de aptitud:");
-		lblNotaDeExamen_3.setBounds(10, 214, 148, 14);
+		lblNotaDeExamen_3.setBounds(10, 214, 269, 14);
 		panel.add(lblNotaDeExamen_3);
 		
 		txtNotaAptDesv = new JTextField();
-		txtNotaAptDesv.setBounds(170, 211, 45, 20);
+		txtNotaAptDesv.setBounds(289, 211, 45, 20);
 		panel.add(txtNotaAptDesv);
 		txtNotaAptDesv.setColumns(10);
 		
+		
 		JButton btnContinuar = new JButton("Agregar");
+		
 		btnContinuar.setBounds(98, 240, 89, 23);
 		panel.add(btnContinuar);
 		
@@ -163,6 +220,7 @@ public class Main extends JFrame {
 		panel.add(btnVer);
 		
 		JButton btnVolverMenu = new JButton("Volver a men\u00FA");
+	
 		btnVolverMenu.setBounds(77, 308, 127, 23);
 		panel.add(btnVolverMenu);
 		
@@ -171,58 +229,44 @@ public class Main extends JFrame {
 		panel.add(lblEscalafon);
 		
 		JButton btnVerificarRen = new JButton("Verificar rendimiento");
-		btnVerificarRen.setBounds(225, 27, 142, 23);
+		btnVerificarRen.setBounds(270, 376, 142, 23);
 		panel.add(btnVerificarRen);
 		
 		JLabel lblIngreseElValor = new JLabel("Ingrese el valor que desea ");
-		lblIngreseElValor.setBounds(225, 66, 142, 14);
+		lblIngreseElValor.setBounds(270, 299, 142, 14);
 		panel.add(lblIngreseElValor);
 		
 		JLabel lblNewLabel_2 = new JLabel("usar como par\u00E1metro");
-		lblNewLabel_2.setBounds(225, 77, 109, 14);
+		lblNewLabel_2.setBounds(270, 312, 109, 14);
 		panel.add(lblNewLabel_2);
 		
-		JLabel lblNewLabel_3 = new JLabel("para comprar:");
-		lblNewLabel_3.setBounds(225, 91, 109, 14);
+		JLabel lblNewLabel_3 = new JLabel("para comparar:");
+		lblNewLabel_3.setBounds(270, 324, 109, 14);
 		panel.add(lblNewLabel_3);
 		
+		
 		txtRendimiento = new JTextField();
-		txtRendimiento.setBounds(248, 113, 86, 20);
+		txtRendimiento.setBounds(270, 343, 130, 20);
 		panel.add(txtRendimiento);
 		txtRendimiento.setColumns(10);
 		
-		JLabel lblResultado = new JLabel("");
-		lblResultado.setBounds(258, 144, 46, 14);
-		panel.add(lblResultado);
 		
-		JRadioButton rdbtnDesvinculadoDeSecundaria = new JRadioButton("Desvinculado de secundaria");
-		rdbtnDesvinculadoDeSecundaria.setBounds(159, 58, 199, 23);
-		getContentPane().add(rdbtnDesvinculadoDeSecundaria);
 		
-		JRadioButton rdbtnBachillerato = new JRadioButton("Bachillerato");
-		rdbtnBachillerato.setBounds(454, 32, 109, 23);
-		getContentPane().add(rdbtnBachillerato);
-		
-		JRadioButton rdbtnDesvinculadoDeBachillerato = new JRadioButton("Desvinculado de bachillerato");
-		rdbtnDesvinculadoDeBachillerato.setBounds(454, 58, 164, 23);
-		getContentPane().add(rdbtnDesvinculadoDeBachillerato);
-		
-		JButton btnSiguiente = new JButton("Siguiente");
 		btnSiguiente.setBounds(353, 88, 89, 23);
 		getContentPane().add(btnSiguiente);
 		
 		JPanel panel_2 = new JPanel();
-		panel_2.setBounds(452, 111, 299, 332);
+		panel_2.setBounds(547, 111, 476, 453);
 		getContentPane().add(panel_2);
 		panel_2.setLayout(null);
 		
 		JLabel lblNombreBach = new JLabel("Nombre:");
-		lblNombreBach.setBounds(10, 11, 46, 14);
+		lblNombreBach.setBounds(10, 11, 94, 14);
 		panel_2.add(lblNombreBach);
 		
 		txtNombreBach = new JTextField();
 		txtNombreBach.setText("");
-		txtNombreBach.setBounds(66, 8, 152, 20);
+		txtNombreBach.setBounds(114, 8, 341, 20);
 		panel_2.add(txtNombreBach);
 		txtNombreBach.setColumns(10);
 		
@@ -231,61 +275,206 @@ public class Main extends JFrame {
 		panel_2.add(lblDpi);
 		
 		txtDPIBach = new JTextField();
-		txtDPIBach.setBounds(66, 41, 152, 20);
+		txtDPIBach.setBounds(114, 39, 341, 20);
 		panel_2.add(txtDPIBach);
 		txtDPIBach.setColumns(10);
 		
 		JLabel lblPromedioDeDcimo = new JLabel("Promedio de D\u00E9cimo:");
-		lblPromedioDeDcimo.setBounds(10, 69, 112, 14);
+		lblPromedioDeDcimo.setBounds(10, 119, 185, 14);
 		panel_2.add(lblPromedioDeDcimo);
 		
 		txtDecimo = new JTextField();
-		txtDecimo.setBounds(132, 66, 86, 20);
+		txtDecimo.setBounds(205, 116, 86, 20);
 		panel_2.add(txtDecimo);
 		txtDecimo.setColumns(10);
 		
+		
 		JLabel lblPromedioDeOnceavo = new JLabel("Promedio de Onceavo:");
-		lblPromedioDeOnceavo.setBounds(10, 94, 112, 14);
+		lblPromedioDeOnceavo.setBounds(10, 146, 185, 14);
 		panel_2.add(lblPromedioDeOnceavo);
 		
 		txtPromOnceavo = new JTextField();
-		txtPromOnceavo.setBounds(132, 91, 86, 20);
+		txtPromOnceavo.setBounds(205, 143, 86, 20);
 		panel_2.add(txtPromOnceavo);
 		txtPromOnceavo.setColumns(10);
 		
+		
 		JLabel lblNotaDeExamen_4 = new JLabel("Nota de examen de Historia:");
-		lblNotaDeExamen_4.setBounds(10, 119, 152, 14);
+		lblNotaDeExamen_4.setBounds(10, 171, 185, 14);
 		panel_2.add(lblNotaDeExamen_4);
 		
 		txtNotaHistoriaBach = new JTextField();
-		txtNotaHistoriaBach.setBounds(154, 116, 60, 20);
+		txtNotaHistoriaBach.setBounds(205, 168, 86, 20);
 		panel_2.add(txtNotaHistoriaBach);
 		txtNotaHistoriaBach.setColumns(10);
 		
+		panel_2.setVisible(false);
+		
+		
 		JButton btnAgregar = new JButton("Agregar");
-		btnAgregar.setBounds(104, 144, 89, 23);
+		
+		btnAgregar.setBounds(359, 137, 89, 23);
 		panel_2.add(btnAgregar);
 		
 		JButton btnVerificar = new JButton("Verificar rendimiento de estudiantes desvinculados");
-		btnVerificar.setBounds(10, 178, 279, 23);
+		btnVerificar.setBounds(22, 408, 279, 23);
 		panel_2.add(btnVerificar);
 		
 		JButton btnVerEscalafn = new JButton("Ver escalaf\u00F3n");
-		btnVerEscalafn.setBounds(66, 212, 152, 23);
+		btnVerEscalafn.setBounds(22, 357, 152, 23);
 		panel_2.add(btnVerEscalafn);
 		
 		JButton btnMenu = new JButton("Volver al men\u00FA ");
-		btnMenu.setBounds(78, 298, 140, 23);
+		
+		btnMenu.setBounds(22, 320, 140, 23);
 		panel_2.add(btnMenu);
 		
-		JLabel lblNewLabel_1 = new JLabel(" ");
-		lblNewLabel_1.setBounds(116, 256, 46, 14);
-		panel_2.add(lblNewLabel_1);
-		jPanel2.setVisible(false);
+		//Metoo
+		
+		
+		btnSiguiente.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				
+				if(rdbtnSecundaria.isSelected()) {
+				panel.setVisible(true);
+				btnVerificarRen.setVisible(false);
+				panel_2.setVisible(false);
+				lblIngreseElValor.setVisible(false);
+				lblNewLabel_2.setVisible(false);
+				txtRendimiento.setVisible(false);
+				lblNewLabel_3.setVisible(false);
+			
+				
+			}
+				
+				if(rdbtnDesvinculadoDeSecundaria.isSelected()) {
+					panel.setVisible(true);
+					panel_2.setVisible(false);
+					
+				}
+				
+				if(rdbtnBachillerato.isSelected()) {
+					panel.setVisible(false);
+					panel_2.setVisible(true);
+					btnVerificar.setVisible(false);
+					
+				}
+				
+				if(rdbtnDesvinculadoDeBachillerato.isSelected()) {
+					panel_2.setVisible(true);
+					panel.setVisible(false);
+					
+					
+				}
+		}});
+		
+		//Metodo para crear el objeto ya sea de secundaria o desvinculado de secundaria
+		btnContinuar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				float txtPromSep= Float.parseFloat(txtPromSepSec.getText());
+				float txtPromOct= Float.parseFloat(txtPromOctavSec.getText());
+				float txtPromNov= Float.parseFloat(txtPromNovSec.getText());
+				float txtNotaMate=Float.parseFloat(txtNotaMateSec.getText());
+				float txtNotaHistoria=Float.parseFloat(txtNotaHistoriaSec.getText());
+				float txtNotaEspanol=Float.parseFloat(txtNotaEspSec.getText());
+				
+				if(rdbtnSecundaria.isSelected()) {
+				estudiante = new Secundaria();
+				secundariaTemp.setNombre(txtNombreSec.getText());
+				secundariaTemp.setDpi(txtDPISec.getText());
+				secundariaTemp.setPromSeptimo(txtPromSep);
+				secundariaTemp.setPromOctavo(txtPromOct);
+				secundariaTemp.setPromNoveno(txtPromNov);
+				secundariaTemp.setNotaMate(txtNotaMate);
+				secundariaTemp.setNotaEspanol(txtNotaEspanol);
+				secundariaTemp.setNotaHistoria(txtNotaHistoria);
+				baseDatos.addEstudiante(secundariaTemp);
+				dbConnection.addEstudiante(secundariaTemp);
+				}
+				
+				if(rdbtnDesvinculadoDeSecundaria.isSelected()) {
+					float txtNotaAptitud=Float.parseFloat(txtNotaAptDesv.getText());
+					desvSecTemp = new SecundariaDesvinculado();
+					//print txtNombreSec.getText()
+					
+					desvSecTemp.setNombre(txtNombreSec.getText());
+					System.out.println(txtNombreSec.getText());
+					desvSecTemp.setDpi(txtDPISec.getText());
+					desvSecTemp.setPromSeptimo(txtPromSep);
+					desvSecTemp.setPromOctavo(txtPromOct);
+					desvSecTemp.setPromNoveno(txtPromNov);
+					desvSecTemp.setNotaMate(txtNotaMate);
+					desvSecTemp.setNotaEspanol(txtNotaEspanol);
+					desvSecTemp.setNotaHistoria(txtNotaHistoria);
+					desvSecTemp.setNotaAptitud(txtNotaAptitud);
+					baseDatos.addEstudiante(desvSecTemp);
+				}
+				
+				
+				
+			}
+		});
+		btnAgregar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				float txtOnceavo= Float.parseFloat(txtPromOnceavo.getText());
+				float txtPromDecimo=Float.parseFloat(txtDecimo.getText());
+				float txtHistoria=Float.parseFloat(txtNotaHistoriaBach.getText());
+				if(rdbtnBachillerato.isSelected()) {
+					bachTemp.setNombre(txtNombreBach.getText());
+					bachTemp.setDpi(txtDPIBach.getText());
+					bachTemp.setPromDecimo(txtPromDecimo);
+					bachTemp.setPromOnceavo(txtOnceavo);
+					bachTemp.setNotaHistoria(txtHistoria);
+					baseDatos.addEstudiante(bachTemp);
+				}
+				if(rdbtnDesvinculadoDeBachillerato.isSelected()) {
+				
+					bachDesvTemp.setNombre(txtNombreBach.getText());
+					bachDesvTemp.setDpi(txtDPIBach.getText());
+					bachDesvTemp.setPromDecimo(txtPromDecimo);
+					bachDesvTemp.setPromOnceavo(txtOnceavo);
+					bachDesvTemp.setNotaHistoria(txtHistoria);
+					baseDatos.addEstudiante(bachDesvTemp);
+				}
+			}
+		});
+		
+		
+		//Metodo para limpiar los text fields, en caso de que desee volver al menu para ingresar otro alumno
+		
+		btnVolverMenu.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				txtNombreSec.setText("");
+				txtDPISec.setText("");
+				txtPromSepSec.setText("");
+				txtPromOctavSec.setText("");
+				txtPromNovSec.setText("");
+				txtNotaMateSec.setText("");
+				txtNotaHistoriaSec.setText("");
+				txtNotaEspSec.setText("");
+				txtNotaAptDesv.setText("");
+				
+			}
+		});
+		
+		//Metodo para limpiar los text fields, en caso de que desee volver al menu para ingresar otro alumno
+		btnMenu.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				txtNombreBach.setText("");
+				txtDPIBach.setText("");
+				txtDecimo.setText("");
+				txtPromOnceavo.setText("");
+				txtNotaHistoriaBach.setText("");
+			}
+		});
+		
+		
+		
 		
 	}
-	private void initComponents() {
-		jPanel1 = new javax.swing.JPanel();
+	
+	
 		
-	}
+	
 }
