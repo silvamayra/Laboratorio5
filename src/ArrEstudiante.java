@@ -2,8 +2,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 
-public  class ArrEstudiante extends Estudiante implements Comparator {
+public  class ArrEstudiante extends Estudiante  {
 	private ArrayList<Estudiante> arrEstudiantes;
+	private SecundariaDesvinculado[] listaDesv;
+	private float resultado; //variable para manejar en los metodos
 
 	/**
 	 * @param arrEstudiantes
@@ -11,6 +13,7 @@ public  class ArrEstudiante extends Estudiante implements Comparator {
 	public ArrEstudiante() {
 		super();
 		arrEstudiantes=new ArrayList<Estudiante>();
+		//SecundariaDesvinculadolistaDesv=new SecundariaDesvinculado;
 		
 	}
 
@@ -28,63 +31,74 @@ public  class ArrEstudiante extends Estudiante implements Comparator {
 		this.arrEstudiantes = arrEstudiantes;
 	}
 	
+	
+	/**
+	 * @return the listaDesv
+	 */
+	public SecundariaDesvinculado[] getListaDesv() {
+		return listaDesv;
+	}
+
+	/**
+	 * @param listaDesv the listaDesv to set
+	 */
+	public void setListaDesv(SecundariaDesvinculado[] listaDesv) {
+		this.listaDesv = listaDesv;
+	}
+
+	/**
+	 * @return the resultado
+	 */
+	public float getResultado() {
+		return resultado;
+	}
+
+	/**
+	 * @param resultado the resultado to set
+	 */
+	public void setResultado(float resultado) {
+		this.resultado = resultado;
+	}
+
 	//Metodo para llenar el arraylist de estudiantes
 	public void addEstudiante(Estudiante estu) {
-		Estudiante nuevo=new Estudiante();
-		arrEstudiantes.add(nuevo);
+		arrEstudiantes.add(estu);
 	}
 	
-	//Metodo para comprar la nota de los dos objetos
-	/**
-	 * 
-	 * @param dobby
-	 * @param snape
-	 * @return 0 si son iguales, 1 segundo, -1 si el primero es menor que el segundo 
+	
+	//Metodo para llenar la lista de estudiantes desvinculados de secndaria
+	public void addDesvinculado (SecundariaDesvinculado dobby){
+		for(int i=0;i<listaDesv.length; i++) {
+			this.listaDesv[i]=dobby;
+		}
+	}
+	
+	/*
+	 * Metodo para determinar si el rendimiento de los estudiantes es mejor que el parametro ingresado
+	 * @param: float valor
+	 * @return cadena de texto que indica al usuario, si se cumple o no con el parametro ingresado
 	 */
-	
-	public int compare(Estudiante dobby, Estudiante snape) {
-		if(dobby.getNotaFinal()==snape.getNotaFinal()) {
-			return 0;
-		}
-		else if (dobby.getNotaFinal()>dobby.notaFinal) {
-			return 1;
-		}
-		else {
-			return-1;
-	}
-		
-		
-	}
-
-	@Override
-	public int compare(Object arg0, Object arg1) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 	 
 	
-	 public String verificarRendimientoSecundaria(float valor) {
+	 public String verificarRendimientoSecundaria(SecundariaDesvinculado[] listaDesv, float valor) {
 		 String mensaje="";
-		int inicio=0;
-		float contador=0;
+		
 		float resultado=0;
-		SecundariaDesvinculado listaSec[];
-		for(SecundariaDesvinculado nuevo: arrEstudiantes) {
-			listaSec[inicio]=nuevo;
-			resultado=resultado + listaSec[inicio].getNotaFinal();
-			inicio ++;
+		for(int i=0; i<listaDesv.length; i++) {
+			this.resultado=resultado + listaDesv[i].getNotaFinal();
 		}
-		resultado=resultado/(listaSec.length);
+		this.resultado=(resultado/(listaDesv.length))*100;
 		if(resultado>valor) {
-		return mensaje="El rendimiento de los estudiantes es mayor al valor ingresado";
+		 mensaje="El rendimiento de los estudiantes es mayor al valor ingresado";
 		}
 		if(resultado<valor) {
-			return mensaje="El rendimiento de los estudiantes es menor al valor ingresado";
+			 mensaje="El rendimiento de los estudiantes es menor al valor ingresado";
 		}
+		return mensaje;
 	}
 
 	/**
-	 * 
+	 * Metodo para ordenar el escalafon
 	 * @param arrEstudiantes
 	 * @return escalafon ordenado
 	 */
@@ -96,12 +110,14 @@ public  class ArrEstudiante extends Estudiante implements Comparator {
 		for(int i=1; i<tamano; i++) {
 			if(arrEstudiantes.get(i).getNotaFinal()>mayor) {
 				mayor=arrEstudiantes.get(i).getNotaFinal();
-				cadena=cadena + "" + arrEstudiantes.get(i).getNombre() + arrEstudiantes.get(i).getNotaFinal();
+				cadena=cadena + "" + arrEstudiantes.get(i).getNombre() +" "+ arrEstudiantes.get(i).getNotaFinal()+"\n";
 		}
 			
 	}
 		return cadena;
 	}
+	
+	
 	
 	
 	

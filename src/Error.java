@@ -63,7 +63,7 @@ public class Error {
 	//En este ciclo se realiza la primera verificacion de datos, donde si el usuario ingresa un int le solicitara que ingrese un string.
 	if (!cadena.equals("")) {
 		try {
-			Float.parseFloat(cadena);
+			Integer.parseInt(cadena);
 			error1=false;
 		} catch (NumberFormatException nfe) {
 			error1=true;
@@ -78,8 +78,9 @@ public class Error {
 		public boolean verificarInt(String cadena) {
 			if (!cadena.equals("")) {
 			try {
-				Float.parseFloat(cadena);
+				Integer.parseInt(cadena);
 				error1=true;
+				
 				
 			} catch (NumberFormatException nfe) {
 				error1=false;

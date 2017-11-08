@@ -419,7 +419,7 @@ public class Main extends JFrame {
 							
 						}
 						
-					if( errores.verificarString(txtPromOctavSec.getText())==true) {
+					if( errores.verificarInt(txtPromOctavSec.getText())==false) {
 						mensaje="¡Debe de ingresar solamente números!"+"\n"+ "Ingrese los datos nuevamente";
 						JOptionPane.showMessageDialog(null, mensaje);
 						txtNombreSec.setText("");
@@ -457,7 +457,6 @@ public class Main extends JFrame {
 				secundariaTemp.setNotaHistoria(txtNotaHistoria);
 				secundariaTemp.calcularPromedio(txtPromSep, txtPromOct, txtPromNov);
 				secundariaTemp.calcularNota(txtNotaMate, txtNotaEspanol, txtNotaHistoria);
-				
 				baseDatos.addEstudiante(secundariaTemp);
 				dbConnection.addEstudiante(secundariaTemp);
 				}
@@ -534,6 +533,7 @@ public class Main extends JFrame {
 				txtNotaHistoriaSec.setText("");
 				txtNotaEspSec.setText("");
 				txtNotaAptDesv.setText("");
+				panel.setVisible(false);
 				
 			}
 		});
@@ -546,6 +546,7 @@ public class Main extends JFrame {
 				txtDecimo.setText("");
 				txtPromOnceavo.setText("");
 				txtNotaHistoriaBach.setText("");
+				panel_2.setVisible(false);
 			}
 		});
 		
