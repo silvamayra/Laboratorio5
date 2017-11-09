@@ -80,6 +80,13 @@ public class Error {
 			try {
 				Integer.parseInt(cadena);
 				error1=true;
+				try {
+					Float.parseFloat(cadena);
+					error1=true;
+				}
+				catch (NumberFormatException nfe) {
+					error1=true;
+				}
 				
 				
 			} catch (NumberFormatException nfe) {

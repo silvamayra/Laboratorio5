@@ -1,10 +1,21 @@
 import java.util.ArrayList;
+/*
+ * *Esta clase interactua con el usuario
+ *@Authors: Oliver Graf  17190
+ *
+ * Mayra Silva 17276
+ 
+ * @File name: Main.java
+ * @Date and Project: laboratorio 5 (8/11/2017)
+ */
 import java.util.Arrays;
 import java.util.Comparator;
 
 public  class ArrEstudiante extends Estudiante  {
 	private ArrayList<Estudiante> arrEstudiantes;
-	private SecundariaDesvinculado[] listaDesv;
+	private float comparador; //Variable a usar en los metodos
+	private float result;//variable a usar en los metodos
+	
 	private float resultado; //variable para manejar en los metodos
 
 	/**
@@ -33,20 +44,6 @@ public  class ArrEstudiante extends Estudiante  {
 	
 	
 	/**
-	 * @return the listaDesv
-	 */
-	public SecundariaDesvinculado[] getListaDesv() {
-		return listaDesv;
-	}
-
-	/**
-	 * @param listaDesv the listaDesv to set
-	 */
-	public void setListaDesv(SecundariaDesvinculado[] listaDesv) {
-		this.listaDesv = listaDesv;
-	}
-
-	/**
 	 * @return the resultado
 	 */
 	public float getResultado() {
@@ -66,12 +63,6 @@ public  class ArrEstudiante extends Estudiante  {
 	}
 	
 	
-	//Metodo para llenar la lista de estudiantes desvinculados de secndaria
-	public void addDesvinculado (SecundariaDesvinculado dobby){
-		for(int i=0;i<listaDesv.length; i++) {
-			this.listaDesv[i]=dobby;
-		}
-	}
 	
 	/*
 	 * Metodo para determinar si el rendimiento de los estudiantes es mejor que el parametro ingresado
@@ -80,22 +71,24 @@ public  class ArrEstudiante extends Estudiante  {
 	 */
 	 
 	
-	 public String verificarRendimientoSecundaria(SecundariaDesvinculado[] listaDesv, float valor) {
+	 public String verificarRendimientoSecundaria(float valor) {
 		 String mensaje="";
 		
-		float resultado=0;
-		for(int i=0; i<listaDesv.length; i++) {
-			this.resultado=resultado + listaDesv[i].getNotaFinal();
+		for(Estudiante dobby: arrEstudiantes) {
+			if(dobby.getTipo().equals("DesvinculadoSec")) {
+			this.resultado=resultado + dobby.getNotaFinal();
 		}
-		this.resultado=(resultado/(listaDesv.length))*100;
+		this.resultado=(resultado/(arrEstudiantes.size()))*100;
 		if(resultado>valor) {
 		 mensaje="El rendimiento de los estudiantes es mayor al valor ingresado";
 		}
 		if(resultado<valor) {
 			 mensaje="El rendimiento de los estudiantes es menor al valor ingresado";
 		}
-		return mensaje;
+		
 	}
+		return mensaje;
+	 }
 
 	/**
 	 * Metodo para ordenar el escalafon
@@ -103,7 +96,7 @@ public  class ArrEstudiante extends Estudiante  {
 	 * @return escalafon ordenado
 	 */
 	
-	public String escalafonordenarEscalafon(ArrayList<Estudiante> arrEstudiantes) {
+	public String ordenarEscalafon() {
 		int tamano=arrEstudiantes.size();
 		String cadena="";
 		float mayor=arrEstudiantes.get(0).getNotaFinal();
@@ -111,6 +104,7 @@ public  class ArrEstudiante extends Estudiante  {
 			if(arrEstudiantes.get(i).getNotaFinal()>mayor) {
 				mayor=arrEstudiantes.get(i).getNotaFinal();
 				cadena=cadena + "" + arrEstudiantes.get(i).getNombre() +" "+ arrEstudiantes.get(i).getNotaFinal()+"\n";
+				arrEstudiantes.remove(i);
 		}
 			
 	}
@@ -119,7 +113,27 @@ public  class ArrEstudiante extends Estudiante  {
 	
 	
 	
-	
+	public String verificarRendimientoBach() {
+		 String mensaje="";
+		
+			for(Estudiante snape: arrEstudiantes) {
+				if(snape.getTipo().equals("DesvinculadoBach")) {
+				this.comparador++;
+				if(snape.getNotaFinal()>80) {
+					this.result++;
+				}	
+			}
+			}
+				this.result=(result*100)/comparador;
+				if(result<50) {
+					mensaje="El 50% de los aspirantes desvinculados graduados de bachillerato no tienen un promedio de notas superior a 80 puntos";
+				}
+				if(result>50) {
+					mensaje="El 50% de los aspirantes desvinculados graduados de bachillerato tienen un promedio de notas superior a 80 puntos";
+				}
+				
+			return mensaje;
+		 }
 	
 		
 	

@@ -2,14 +2,20 @@
  * 
  */
 
-/**
- * @author smayr
+/*
+ * *Esta clase crea un objeto de tipo bachillerato
+ *@Authors: Oliver Graf  17190
  *
+ * Mayra Silva 17276
+ 
+ * @File name: Bachillerato.java
+ * @Date and Project: laboratorio 5 (8/11/2017)
  */
 public class Bachillerato extends Estudiante implements NotaEscalafon {
 	protected float promDecimo;
 	protected float promOnceavo;
 	protected float notaHistoria;
+	
 	/**
 	 * 
 	 */
@@ -21,17 +27,13 @@ public class Bachillerato extends Estudiante implements NotaEscalafon {
 	 * @param nombre
 	 * @param dpi
 	 * @param notaFinal
+	 * @param tipo
 	 */
-	public Bachillerato(String nombre, String dpi, float notaFinal,
-			float promDecimo, float promOnceavo, float notaHistoria) {
-		super(nombre, dpi, notaFinal);
-		this.promDecimo=promDecimo;
-		this.promOnceavo=promOnceavo;
-		this.promOnceavo=promOnceavo;
+	public Bachillerato(String nombre, String dpi, float notaFinal, String tipo) {
+		super(nombre, dpi, notaFinal, tipo);
+		
 		// TODO Auto-generated constructor stub
 	}
-	
-	
 	/**
 	 * @return the nombre
 	 */
@@ -104,6 +106,19 @@ public class Bachillerato extends Estudiante implements NotaEscalafon {
 	 */
 	public void setNotaHistoria(float notaHistoria) {
 		this.notaHistoria = notaHistoria;
+	}
+	
+	/**
+	 * @return the tipo
+	 */
+	public String getTipo() {
+		return tipo;
+	}
+	/**
+	 * @param tipo the tipo to set
+	 */
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
 	}
 	
 	

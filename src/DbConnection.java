@@ -1,4 +1,13 @@
 import java.util.ArrayList;
+/*
+ * *Esta clase crea un arraylist paramanejar los datos
+ *@Authors: Oliver Graf  17190
+ *
+ * Mayra Silva 17276
+ 
+ * @File name: Main.java
+ * @Date and Project: laboratorio 5 (8/11/2017)
+ */
 
 import org.bson.Document;
 
@@ -22,7 +31,7 @@ public class DbConnection {
 		}
 			
 	}
-	
+	//Metodo para añadir a un estudiante a la base de datos de mongo
 	public void addListEstudiante(ArrayList<Estudiante> estudiantes){
 		for(Estudiante es: estudiantes) {
 			Document estudiante = new Document("title", "MongoDB") 

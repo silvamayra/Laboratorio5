@@ -2,9 +2,14 @@
  * 
  */
 
-/**
- * @author smayr
+/*
+ * *Esta clase crea un objeto desvinculado de secundaria
+ *@Authors: Oliver Graf  17190
  *
+ * Mayra Silva 17276
+ 
+ * @File name: SecundariaDesvinculado.java
+ * @Date and Project: laboratorio 5 (8/11/2017)
  */
 public class SecundariaDesvinculado extends Secundaria implements NotaEscalafon {
 	private float notaAptitud;
@@ -17,23 +22,18 @@ public class SecundariaDesvinculado extends Secundaria implements NotaEscalafon 
 		// TODO Auto-generated constructor stub
 	}
 
+
 	/**
 	 * @param nombre
 	 * @param dpi
 	 * @param notaFinal
-	 * @param promSeptimo
-	 * @param promOctavo
-	 * @param promNoveno
-	 * @param notaMate
-	 * @param notaHistoria
-	 * @param notaEspanol
+	 * @param tipo
 	 */
-	public SecundariaDesvinculado(String nombre, String dpi, float notaFinal, float promSeptimo, float promOctavo,
-			float promNoveno, float notaMate, float notaHistoria, float notaEspanol, float notaAptitud) {
-		super(nombre, dpi, notaFinal, promSeptimo, promOctavo, promNoveno, notaMate, notaHistoria, notaEspanol);
-		this.notaAptitud=notaAptitud;
+	public SecundariaDesvinculado(String nombre, String dpi, float notaFinal, String tipo) {
+		super(nombre, dpi, notaFinal, tipo);
 		// TODO Auto-generated constructor stub
 	}
+
 
 	/**
 	 * @return the promSeptimo
@@ -178,6 +178,19 @@ public class SecundariaDesvinculado extends Secundaria implements NotaEscalafon 
 	 */
 	public void setNotaAptitud(float notaAptitud) {
 		this.notaAptitud = notaAptitud;
+	}
+	
+	/**
+	 * @return the tipo
+	 */
+	public String getTipo() {
+		return tipo;
+	}
+	/**
+	 * @param tipo the tipo to set
+	 */
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
 	}
 	
 	public void calcularPromedio(float promSeptimo, float promOctavo, float promNoveno) {

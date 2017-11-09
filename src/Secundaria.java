@@ -1,10 +1,14 @@
 /**
  * 
  */
-
-/**
- * @author smayr
+/*
+ * *Esta clase crea un objeto de tipo estudiante de bachillerato
+ *@Authors: Oliver Graf  17190
  *
+ * Mayra Silva 17276
+ 
+ * @File name: Bachillerato.java
+ * @Date and Project: laboratorio 5 (8/11/2017)
  */
 public class Secundaria extends Estudiante implements NotaEscalafon{
 	protected float promSeptimo;
@@ -15,8 +19,16 @@ public class Secundaria extends Estudiante implements NotaEscalafon{
 	protected float notaEspanol;
 	
 	
+	
+	
+	
+
+	/**
+	 * 
+	 */
 	public Secundaria() {
 		super();
+		// TODO Auto-generated constructor stub
 	}
 
 
@@ -24,16 +36,11 @@ public class Secundaria extends Estudiante implements NotaEscalafon{
 	 * @param nombre
 	 * @param dpi
 	 * @param notaFinal
+	 * @param tipo
 	 */
-	public Secundaria(String nombre, String dpi, float notaFinal, float promSeptimo, float promOctavo, float promNoveno, 
-			float notaMate, float notaHistoria, float notaEspanol) {
-		super(nombre, dpi, notaFinal);
-		this.promNoveno=promNoveno;
-		this.promOctavo=promOctavo;
-		this.promNoveno=promNoveno;
-		this.notaMate=notaMate;
-		this.notaMate=notaMate;
-		this.notaEspanol=notaEspanol;
+	public Secundaria(String nombre, String dpi, float notaFinal, String tipo) {
+		super(nombre, dpi, notaFinal, tipo);
+		
 		// TODO Auto-generated constructor stub
 	}
 
@@ -169,6 +176,18 @@ public class Secundaria extends Estudiante implements NotaEscalafon{
 		this.notaFinal = notaFinal;
 	}
 	
+	/**
+	 * @return the tipo
+	 */
+	public String getTipo() {
+		return tipo;
+	}
+	/**
+	 * @param tipo the tipo to set
+	 */
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
 	
 	public void calcularPromedio(float ...list) {
 		this.notaFinal=(promSeptimo+promOctavo+promNoveno)/3;
